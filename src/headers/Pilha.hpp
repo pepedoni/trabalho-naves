@@ -1,16 +1,18 @@
 #ifndef PILHA_HPP
 #define PILHA_HPP
-class Pilha
-{
+
+#include "TipoItem.hpp"
+
+class Pilha {
     public:
         Pilha(){tamanho = 0;};
         int GetTamanho();
         bool Vazia();
-        virtual void Empilha(Nave* item) = 0;
-        virtual Nave* Desempilha() = 0;
+        virtual void Empilha(TipoItem item) = 0;
+        virtual TipoItem Desempilha() = 0;
         virtual void Limpa() = 0;
     protected:
-        int tamanho;
+        int tamanho = 0;
 };
 #endif
 

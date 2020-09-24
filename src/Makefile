@@ -10,8 +10,8 @@
 
 CC=g++ # compilador, troque para gcc se preferir utilizar C
 CFLAGS=-Wall -Wextra # compiler flags, troque o que quiser, exceto bibliotecas externas
-EXEC=./tp1 # nome do executavel que sera gerado, nao troque
-TMPOUT=tp1.testresult
+EXEC=./tp1.exe # nome do executavel que sera gerado, nao troque
+TMPOUT=./tp1.testresult
 HEADERS_DIR = ./headers
 
 # === REGRAS =====
@@ -37,23 +37,44 @@ HEADERS_DIR = ./headers
 # gcc)
 
 
-$(EXEC): main.cpp pilhaarranjo.o nave.o
-	$(CC) $(CFLAGS) main.cpp pilhaarranjo.o -o nave.o -o $(EXEC)
+$(EXEC): main.cpp nave.o tipoitem.o tipocelula.o pilha.o fila.o lista.o pilhaencadeada.o listaencadeada.o filaencadeada.o  
+	$(CC) $(CFLAGS) main.cpp tipoitem.o tipocelula.o nave.o pilha.o fila.o lista.o pilhaencadeada.o listaencadeada.o filaencadeada.o -o $(EXEC)
 
-pilhaarranjo.o: ${HEADERS_DIR}/PilhaArranjo.hpp  ${HEADERS_DIR}/PilhaArranjo.cpp 
-	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/PilhaArranjo.cpp -o pilhaarranjo.o
+tipoitem.o: ${HEADERS_DIR}/TipoItem.hpp  ${HEADERS_DIR}/TipoItem.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/TipoItem.cpp -o tipoitem.o
+
+tipocelula.o: ${HEADERS_DIR}/TipoCelula.hpp  ${HEADERS_DIR}/TipoCelula.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/TipoCelula.cpp -o tipocelula.o
+	
+fila.o: ${HEADERS_DIR}/Fila.hpp  ${HEADERS_DIR}/Fila.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/Fila.cpp -o fila.o
+
+lista.o: ${HEADERS_DIR}/Lista.hpp  ${HEADERS_DIR}/Lista.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/Lista.cpp -o lista.o
+
+pilha.o: ${HEADERS_DIR}/Pilha.hpp  ${HEADERS_DIR}/Pilha.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/Pilha.cpp -o pilha.o
 
 nave.o: ${HEADERS_DIR}/Nave.cpp 
 	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/Nave.cpp -o nave.o
+
+pilhaencadeada.o: ${HEADERS_DIR}/PilhaEncadeada.hpp  ${HEADERS_DIR}/PilhaEncadeada.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/PilhaEncadeada.cpp -o pilhaencadeada.o 
+
+listaencadeada.o: ${HEADERS_DIR}/ListaEncadeada.hpp  ${HEADERS_DIR}/ListaEncadeada.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/ListaEncadeada.cpp -o listaencadeada.o  
+
+filaencadeada.o: ${HEADERS_DIR}/FilaEncadeada.hpp  ${HEADERS_DIR}/FilaEncadeada.cpp 
+	$(CC) $(CFLAGS) -c ${HEADERS_DIR}/FilaEncadeada.cpp -o filaencadeada.o  
  
 test: $(EXEC)
 	@bash run_tests.sh $(EXEC) $(TMPOUT)
 
 clean: 
-	rm -rf pilhaarranjo.o nave.o   
+	rm -rf listaencadeada.o pilhaencadeada.o filaencadeada.o nave.o   
 
 clean_windows:
-	del pilhaarranjo.o nave.o  
+	del listaencadeada.o pilhaencadeada.o nave.o filaencadeada.o tipoitem.o tipocelula.o
 # === OUTROS =====
 # ================
 # 

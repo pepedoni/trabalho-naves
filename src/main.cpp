@@ -1,6 +1,8 @@
 #include <cstdio> // em C substituir por #include <stdio.h>
 #include <iostream>
-#include "headers/PilhaArranjo.hpp" //um exemplo de como incluir cabeçalhos de outros arquivos criados
+#include "headers/PilhaEncadeada.hpp" 
+#include "headers/ListaEncadeada.hpp"
+#include "headers/FilaEncadeada.hpp"
 #include "headers/Nave.hpp"
 
 using namespace std;
@@ -9,18 +11,52 @@ int main() {
   scanf("%d",&num_frotas);
   int i;
   
-  PilhaArranjo* p = new PilhaArranjo();
+  PilhaEncadeada* pilhaNaves = new PilhaEncadeada();
+  ListaEncadeada* listaNavesCombate = new ListaEncadeada();
+  FilaEncadeada* filaAvaria = new FilaEncadeada();
+
   for(i=0; i < num_frotas; i++){
     int id_nave;
-    scanf("%d",&id_nave);
-    Nave* n = new Nave(id_nave);
-    p->Empilha(n);
-    cout << n->getCodigo();
+    scanf("%d", &id_nave);
     //desenvolver o código para inserção correta das naves que são lidas
+     
+    Nave* nNave = new Nave(id_nave);
+    TipoItem nItemNave = TipoItem(id_nave, nNave);
+    nItemNave.SetChave(id_nave);
+    pilhaNaves->Empilha(nItemNave);
   }
   int operacao;
   while(scanf("%d", &operacao) != EOF) {
+    if(operacao == 0) {
+      
+      // Enviar nave para combate
+      TipoItem tCombate = pilhaNaves->Desempilha();
+      std::cout << "Chave: " << tCombate.GetChave();
+      Nave* n = tCombate.GetNave();
+      n->Combate();
+      listaNavesCombate->InsereFinal(tCombate);
+    } else if(operacao == -1) {
+      // Consertar nave
+      TipoItem tRemoveAvaria = filaAvaria->Desenfileira();
+      Nave* n = tRemoveAvaria.GetNave();
+      pilhaNaves->Empilha(tRemoveAvaria);
+      n->Consertada();
+    } else if(operacao == -2) {
+      // Imprimir pilha de naves prontas para combate
+      pilhaNaves->Imprime();
+    } else if(operacao == -3) {
+      // Imprimir fila de naves avariadas
+      filaAvaria->Imprime();
+    } else {
+      // Inserir nave na fila de avariadas
+      int codigo_nave = operacao;
+      TipoItem tInsereAvaria  = listaNavesCombate->RemoveItem(codigo_nave);
+      Nave* n = tInsereAvaria.GetNave();
+      filaAvaria->Enfileira(tInsereAvaria);
+      n->Avaria();
+    }
     //desenvolver o código relacionado as operações a serem realizadas
   }
+
   return 0;
 }
