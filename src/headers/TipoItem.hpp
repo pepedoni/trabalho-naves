@@ -9,17 +9,18 @@ class TipoItem
 {
     public:
         TipoItem();
-        ~TipoItem();
         TipoItem(TipoChave c);
-        TipoItem(TipoChave c, Nave* n);
+        TipoItem(TipoChave c, Nave n);
+        
+        ~TipoItem(){};
         void SetChave(TipoChave c);
-        void SetNave(Nave* n);
-        Nave* GetNave();
+        void SetNave(Nave n);
+        Nave GetNave();
         TipoChave GetChave();
         void Imprime();
     private:
         TipoChave chave;
-        Nave* nave;
+        Nave nave;
     // outros membros
 };
 #endif

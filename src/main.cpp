@@ -20,9 +20,8 @@ int main() {
     scanf("%d", &id_nave);
     //desenvolver o código para inserção correta das naves que são lidas
      
-    Nave* nNave = new Nave(id_nave);
+    Nave nNave = Nave(id_nave);
     TipoItem nItemNave = TipoItem(id_nave, nNave);
-    nItemNave.SetChave(id_nave);
     pilhaNaves->Empilha(nItemNave);
   }
   int operacao;
@@ -31,16 +30,16 @@ int main() {
       
       // Enviar nave para combate
       TipoItem tCombate = pilhaNaves->Desempilha();
-      std::cout << "Chave: " << tCombate.GetChave();
-      Nave* n = tCombate.GetNave();
-      n->Combate();
+      Nave n = tCombate.GetNave();
+      n.Combate();
       listaNavesCombate->InsereFinal(tCombate);
     } else if(operacao == -1) {
       // Consertar nave
       TipoItem tRemoveAvaria = filaAvaria->Desenfileira();
-      Nave* n = tRemoveAvaria.GetNave();
+  
+      Nave n = tRemoveAvaria.GetNave();
       pilhaNaves->Empilha(tRemoveAvaria);
-      n->Consertada();
+      n.Consertada();
     } else if(operacao == -2) {
       // Imprimir pilha de naves prontas para combate
       pilhaNaves->Imprime();
@@ -51,9 +50,9 @@ int main() {
       // Inserir nave na fila de avariadas
       int codigo_nave = operacao;
       TipoItem tInsereAvaria  = listaNavesCombate->RemoveItem(codigo_nave);
-      Nave* n = tInsereAvaria.GetNave();
+      Nave n = tInsereAvaria.GetNave();
       filaAvaria->Enfileira(tInsereAvaria);
-      n->Avaria();
+      n.Avaria();
     }
     //desenvolver o código relacionado as operações a serem realizadas
   }

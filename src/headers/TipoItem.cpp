@@ -5,18 +5,15 @@ TipoItem::TipoItem() {
     chave = -1; 
 }
 
-TipoItem::~TipoItem() {
-    delete nave;
-}
 
 TipoItem::TipoItem(TipoChave c){
     chave = c;
 }
 
-TipoItem::TipoItem(TipoChave c, Nave* n){
+TipoItem::TipoItem(TipoChave c, Nave n){
     chave = c;
     nave = n;
-    std::cout << "\nChave " << c << "Ponteiro Nave Criação: " << n << "Codigo nave: " << n->GetCodigo();
+ //   std::cout << "\nChave " << c << "Ponteiro Nave Criação: " << &n << "Codigo nave: " << n.GetCodigo();
 }
 
 void TipoItem::SetChave(TipoChave c) {
@@ -28,11 +25,11 @@ TipoChave TipoItem::GetChave(){
 }
 
 
-void TipoItem::SetNave(Nave* n) {
+void TipoItem::SetNave(Nave n) {
     nave = n;
 }
 
-Nave* TipoItem::GetNave(){
+Nave TipoItem::GetNave(){
     return nave;
 }
 

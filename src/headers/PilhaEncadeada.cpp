@@ -19,7 +19,6 @@ void PilhaEncadeada::Empilha(TipoItem item){
 };
 
 TipoItem PilhaEncadeada::Desempilha(){
-    std::cout << "Desempilhando" << this->topo;
     TipoItem aux; 
     TipoCelula *p;
     if(this->tamanho == 0) throw "A pilha está vazia!";
