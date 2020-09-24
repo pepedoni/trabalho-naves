@@ -71,10 +71,10 @@ test: $(EXEC)
 	@bash run_tests.sh $(EXEC) $(TMPOUT)
 
 clean: 
-	rm -rf listaencadeada.o pilhaencadeada.o filaencadeada.o nave.o   
+	rm -rf nave.o tipoitem.o tipocelula.o pilha.o fila.o lista.o pilhaencadeada.o listaencadeada.o filaencadeada.o  
 
 clean_windows:
-	del listaencadeada.o pilhaencadeada.o nave.o filaencadeada.o tipoitem.o tipocelula.o
+	del nave.o tipoitem.o tipocelula.o pilha.o fila.o lista.o pilhaencadeada.o listaencadeada.o filaencadeada.o  
 # === OUTROS =====
 # ================
 # 
